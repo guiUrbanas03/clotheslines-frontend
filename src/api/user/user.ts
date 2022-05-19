@@ -4,7 +4,7 @@ import { UserApi } from './user.types';
 export const user = (axiosApi: AxiosInstance): UserApi => {
   return {
     list: async () => {
-      const res = await axiosApi.get(`/users/index`);
+      const res = await axiosApi.get(`/users`);
       console.log('users: ', res.data);
     },
 

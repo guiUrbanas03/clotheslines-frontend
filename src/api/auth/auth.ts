@@ -11,12 +11,12 @@ export const auth = (
       console.log('register: ', res.data);
     },
 
-    login: async () => {
+    login: async (email, password) => {
       await axiosUrl.get('/sanctum/csrf-cookie');
 
       const res = await axiosApi.post('/auth/login', {
-        email: 'urbanas@email.com',
-        password: '123123123',
+        email: email,
+        password: password,
       });
 
       console.log(res.data);

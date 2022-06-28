@@ -1,0 +1,1 @@
+export type LoginFormField = 'email' | 'password';

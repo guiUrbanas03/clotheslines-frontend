@@ -8,8 +8,8 @@ export class AuthStore {
 
   reset(): void {}
 
-  async login() {
-    await api().auth.login();
+  async login(email: string, password: string) {
+    await api().auth.login(email, password);
   }
 }
 

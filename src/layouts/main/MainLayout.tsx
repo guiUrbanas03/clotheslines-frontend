@@ -11,7 +11,9 @@ const MainLayout: FunctionComponent = (): JSX.Element => {
       <Box>
         <Header />
       </Box>
-      <Outlet />
+      <Box paddingBottom={8}>
+        <Outlet />
+      </Box>
     </>
   );
 };

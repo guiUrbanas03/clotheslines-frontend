@@ -33,7 +33,7 @@ const Header: FunctionComponent = observer((): JSX.Element => {
       <HStack width='100%' justifyContent='space-between' alignItems='center'>
         <Box>
           <Image
-            width={['100px', '125px', '150px']}
+            width={['100px', '125px']}
             src={useColorModeValue(Logo, LogoDark)}
             alt='logo'
           />

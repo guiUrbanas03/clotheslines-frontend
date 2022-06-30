@@ -9,7 +9,6 @@ export const styles = Object.freeze({
 
     body: {
       backgroundColor: mode('light.primary', 'dark.primary')(props),
-      height: '100vh',
     },
   }),
 });
@@ -26,7 +25,7 @@ export const stylesWithGradient = Object.freeze({
       background: mode('light.gradient', 'dark.gradient')(props),
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      height: '100vh',
+      backgroundAttachment: 'fixed',
     },
   }),
 });

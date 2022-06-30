@@ -9,6 +9,7 @@ import {
   HStack,
   IconButton,
   Spacer,
+  Tooltip,
   useColorMode,
   useColorModeValue,
   useDisclosure,
@@ -75,38 +76,49 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
           </DrawerHeader>
           <DrawerBody>
             <HStack alignItems='stretch' justifyContent='space-between'>
-              <IconButton
-                bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
-                shadow='md'
-                size='lg'
-                icon={<FaSun />}
-                aria-label='sun'
-                onClick={() => handleChangeColorMode('light', false)}
-              />
-              <IconButton
-                bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
-                shadow='md'
-                size='lg'
-                icon={<RiHazeFill />}
-                aria-label='moon'
-                onClick={() => handleChangeColorMode('light', true)}
-              />
-              <IconButton
-                bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
-                shadow='md'
-                size='lg'
-                icon={<FaMoon />}
-                aria-label='moon'
-                onClick={() => handleChangeColorMode('dark', false)}
-              />
-              <IconButton
-                bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
-                shadow='md'
-                size='lg'
-                icon={<GiMoonOrbit />}
-                aria-label='moon'
-                onClick={() => handleChangeColorMode('dark', true)}
-              />
+              <Tooltip label='day' hasArrow>
+                <IconButton
+                  bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
+                  shadow='md'
+                  size='lg'
+                  icon={<FaSun />}
+                  aria-label='day'
+                  onClick={() => handleChangeColorMode('light', false)}
+                />
+              </Tooltip>
+
+              <Tooltip label='sunrise' hasArrow>
+                <IconButton
+                  bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
+                  shadow='md'
+                  size='lg'
+                  icon={<RiHazeFill />}
+                  aria-label='sunset'
+                  onClick={() => handleChangeColorMode('light', true)}
+                />
+              </Tooltip>
+
+              <Tooltip label='night' hasArrow>
+                <IconButton
+                  bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
+                  shadow='md'
+                  size='lg'
+                  icon={<FaMoon />}
+                  aria-label='night'
+                  onClick={() => handleChangeColorMode('dark', false)}
+                />
+              </Tooltip>
+
+              <Tooltip label='sunset' hasArrow>
+                <IconButton
+                  bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
+                  shadow='md'
+                  size='lg'
+                  icon={<GiMoonOrbit />}
+                  aria-label='moon'
+                  onClick={() => handleChangeColorMode('dark', true)}
+                />
+              </Tooltip>
             </HStack>
           </DrawerBody>
         </DrawerContent>

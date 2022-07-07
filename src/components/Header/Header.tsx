@@ -4,6 +4,7 @@ import MenuDrawer from '../MenuDrawer/MenuDrawer';
 import Logo from '../../assets/svg/logo.svg';
 import LogoDark from '../../assets/svg/logo-dark.svg';
 import { observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
 
 const Header: FunctionComponent = observer((): JSX.Element => {
   return (
@@ -18,6 +19,7 @@ const Header: FunctionComponent = observer((): JSX.Element => {
       right='0'
       width={['100%', '100%', 'calc(100% - 220px)']}
       placeItems='center'
+      zIndex={100}
       _before={{
         content: "''",
         position: 'absolute',
@@ -31,13 +33,15 @@ const Header: FunctionComponent = observer((): JSX.Element => {
       }}
     >
       <HStack width='100%' justifyContent='space-between' alignItems='center'>
-        <Box>
-          <Image
-            width={['100px', '125px']}
-            src={useColorModeValue(Logo, LogoDark)}
-            alt='logo'
-          />
-        </Box>
+        <Link to='/'>
+          <Box>
+            <Image
+              width={['100px', '125px']}
+              src={useColorModeValue(Logo, LogoDark)}
+              alt='logo'
+            />
+          </Box>
+        </Link>
         <MenuDrawer />
       </HStack>
     </Box>

@@ -1,4 +1,5 @@
-import { AxiosInstance } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
+import { userTransformer } from '../../transformers/user/userTransformer';
 import { AuthApi } from './auth.types';
 
 export const auth = (
@@ -6,30 +7,78 @@ export const auth = (
   axiosUrl: AxiosInstance,
 ): AuthApi => {
   return {
-    register: async () => {
-      const res = await axiosApi.post(`/auth/register`);
-      console.log('register: ', res.data);
+    register: async ({ user, profile }) => {
+      try {
+        await axiosUrl.get('/sanctum/csrf-cookie');
+
+        const res = await axiosApi.post(`/auth/register`, { user, profile });
+
+        return {
+          status: res.status,
+          message: res.data.message,
+          data: {
+            user: userTransformer(res.data.user),
+          },
+        };
+      } catch (error) {
+        console.error(error);
+      }
     },
 
-    login: async (email, password) => {
-      await axiosUrl.get('/sanctum/csrf-cookie');
+    login: async ({ email, password }) => {
+      try {
+        await axiosUrl.get('/sanctum/csrf-cookie');
 
-      const res = await axiosApi.post('/auth/login', {
-        email: email,
-        password: password,
-      });
+        const res = await axiosApi.post('/auth/login', {
+          email,
+          password,
+        });
 
-      console.log(res.data);
+        return {
+          status: res.status,
+          message: res.data.message,
+          data: {
+            user: userTransformer(res.data.user),
+          },
+        };
+      } catch (error: any) {
+        const { status, data } = error.response;
+        console.error(error);
+      }
     },
 
     logout: async () => {
-      const res = await axiosApi.post('/auth/logout');
-      console.log('logout: ', res.data);
+      try {
+        const res = await axiosApi.post('/auth/logout');
+
+        if (res && res.status === 200) {
+          return {
+            status: res.status,
+            message: res.data.message,
+            data: null,
+          };
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
 
     me: async () => {
-      const res = await axiosApi.get('/auth/me');
-      console.log('me: ', res.data);
+      try {
+        const res = await axiosApi.get('/auth/me');
+
+        if (res && res.status === 200) {
+          return {
+            status: res.status,
+            message: res.data.message,
+            data: {
+              user: userTransformer(res.data.user),
+            },
+          };
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
   };
 };

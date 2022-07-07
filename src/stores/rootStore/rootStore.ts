@@ -1,9 +1,11 @@
 import { makeAutoObservable } from 'mobx';
 import { authStore, AuthStore } from '../authStore';
 import { uiStore, UiStore } from '../uiStore';
+import { userStore, UserStore } from '../userStore';
 
-class RootStore {
+export class RootStore {
   authStore!: AuthStore;
+  userStore!: UserStore;
   uiStore!: UiStore;
 
   constructor() {
@@ -12,6 +14,7 @@ class RootStore {
 
   init(): void {
     this.authStore = authStore;
+    this.userStore = userStore;
     this.uiStore = uiStore;
   }
 
@@ -21,4 +24,4 @@ class RootStore {
   }
 }
 
-export { RootStore };
+export default new RootStore();

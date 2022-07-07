@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import {
   Box,
+  Button,
   Divider,
   Drawer,
   DrawerBody,
@@ -9,12 +10,14 @@ import {
   HStack,
   IconButton,
   Spacer,
+  Text,
   Tooltip,
   useColorMode,
   useColorModeValue,
   useDisclosure,
+  VStack,
 } from '@chakra-ui/react';
-import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa';
+import { FaBars, FaMoon, FaSignOutAlt, FaSun, FaTimes } from 'react-icons/fa';
 import { RiHazeFill } from 'react-icons/ri';
 import { GiMoonOrbit } from 'react-icons/gi';
 import { useStores } from '../../hooks';
@@ -23,7 +26,7 @@ import { observer } from 'mobx-react';
 const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { setColorMode } = useColorMode();
-  const { uiStore } = useStores();
+  const { authStore, uiStore } = useStores();
 
   const handleChangeColorMode = (
     mode: 'light' | 'dark',
@@ -31,6 +34,10 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
   ) => {
     setColorMode(mode);
     uiStore.storeActiveGradientBackground(withGradient);
+  };
+
+  const handleLogout = async () => {
+    await authStore.logout();
   };
 
   return (
@@ -75,51 +82,84 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
             <Divider bgColor='white' />
           </DrawerHeader>
           <DrawerBody>
-            <HStack alignItems='stretch' justifyContent='space-between'>
-              <Tooltip label='day' hasArrow>
-                <IconButton
-                  bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
-                  shadow='md'
-                  size='lg'
-                  icon={<FaSun />}
-                  aria-label='day'
-                  onClick={() => handleChangeColorMode('light', false)}
-                />
-              </Tooltip>
+            <VStack height='100%' alignItems='stretch'>
+              <HStack alignItems='stretch' justifyContent='space-between'>
+                <Tooltip label='day' hasArrow>
+                  <IconButton
+                    bgColor={useColorModeValue(
+                      'whiteAlpha.700',
+                      'dark.ternary',
+                    )}
+                    shadow='md'
+                    size='lg'
+                    icon={<FaSun />}
+                    aria-label='day'
+                    onClick={() => handleChangeColorMode('light', false)}
+                  />
+                </Tooltip>
 
-              <Tooltip label='sunrise' hasArrow>
-                <IconButton
-                  bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
-                  shadow='md'
-                  size='lg'
-                  icon={<RiHazeFill />}
-                  aria-label='sunset'
-                  onClick={() => handleChangeColorMode('light', true)}
-                />
-              </Tooltip>
+                <Tooltip label='sunrise' hasArrow>
+                  <IconButton
+                    bgColor={useColorModeValue(
+                      'whiteAlpha.700',
+                      'dark.ternary',
+                    )}
+                    shadow='md'
+                    size='lg'
+                    icon={<RiHazeFill />}
+                    aria-label='sunset'
+                    onClick={() => handleChangeColorMode('light', true)}
+                  />
+                </Tooltip>
 
-              <Tooltip label='night' hasArrow>
-                <IconButton
-                  bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
-                  shadow='md'
-                  size='lg'
-                  icon={<FaMoon />}
-                  aria-label='night'
-                  onClick={() => handleChangeColorMode('dark', false)}
-                />
-              </Tooltip>
+                <Tooltip label='night' hasArrow>
+                  <IconButton
+                    bgColor={useColorModeValue(
+                      'whiteAlpha.700',
+                      'dark.ternary',
+                    )}
+                    shadow='md'
+                    size='lg'
+                    icon={<FaMoon />}
+                    aria-label='night'
+                    onClick={() => handleChangeColorMode('dark', false)}
+                  />
+                </Tooltip>
 
-              <Tooltip label='sunset' hasArrow>
-                <IconButton
-                  bgColor={useColorModeValue('whiteAlpha.700', 'dark.ternary')}
-                  shadow='md'
-                  size='lg'
-                  icon={<GiMoonOrbit />}
-                  aria-label='moon'
-                  onClick={() => handleChangeColorMode('dark', true)}
-                />
-              </Tooltip>
-            </HStack>
+                <Tooltip label='sunset' hasArrow>
+                  <IconButton
+                    bgColor={useColorModeValue(
+                      'whiteAlpha.700',
+                      'dark.ternary',
+                    )}
+                    shadow='md'
+                    size='lg'
+                    icon={<GiMoonOrbit />}
+                    aria-label='moon'
+                    onClick={() => handleChangeColorMode('dark', true)}
+                  />
+                </Tooltip>
+              </HStack>
+              <Spacer />
+              {authStore.isLoggedIn ? (
+                <Box paddingBottom={4}>
+                  <Button
+                    width='100%'
+                    onClick={handleLogout}
+                    bgColor={useColorModeValue(
+                      'whiteAlpha.600',
+                      'blackAlpha.400',
+                    )}
+                    shadow='md'
+                  >
+                    <HStack>
+                      <FaSignOutAlt />
+                      <Text>Log out</Text>
+                    </HStack>
+                  </Button>
+                </Box>
+              ) : null}
+            </VStack>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

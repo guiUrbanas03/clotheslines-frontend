@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { Box, useColorModeValue, VStack } from '@chakra-ui/react';
 import asideBuilding from '../../assets/svg/aside-building.svg';
 import asideBuildingDark from '../../assets/svg/aside-building-dark.svg';
@@ -11,8 +11,11 @@ import {
 } from 'react-icons/fa';
 import SidebarItem from './components/SidebarItem/SidebarItem';
 import { observer } from 'mobx-react';
+import { useStores } from '../../hooks';
 
-const Sidebar: FunctionComponent = observer((): JSX.Element => {
+const Sidebar: FC = observer((): JSX.Element => {
+  const { authStore } = useStores();
+
   return (
     <Box
       as='aside'
@@ -26,33 +29,40 @@ const Sidebar: FunctionComponent = observer((): JSX.Element => {
       backgroundSize='cover'
       backgroundPosition='right'
       paddingY={4}
+      zIndex={100}
       transition='width 0.3s'
-      _hover={{
-        _before: {
-          content: "''",
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: '100%',
-          height: '100%',
-          background: 'inherit',
-          filter: 'blur(8px)',
-          zIndex: '-1',
-        },
-      }}
+      _hover={
+        authStore.isAuthenticated
+          ? {
+              _before: {
+                content: "''",
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '100%',
+                background: 'inherit',
+                filter: 'blur(8px)',
+                zIndex: '-1',
+              },
+            }
+          : {}
+      }
     >
-      <VStack
-        spacing={8}
-        display={{ base: 'none', md: 'block' }}
-        marginLeft={4}
-        marginRight={8}
-      >
-        <SidebarItem icon={<FaLeaf />} text='Newest' />
-        <SidebarItem icon={<FaLevelUpAlt />} text='Trending' />
-        <SidebarItem icon={<FaRandom />} text='Random' />
-        <SidebarItem icon={<FaStar />} text='My favorites' />
-        <SidebarItem icon={<FaCubes />} text='My collection' />
-      </VStack>
+      {authStore.isAuthenticated ? (
+        <VStack
+          spacing={8}
+          display={{ base: 'none', md: 'block' }}
+          marginLeft={4}
+          marginRight={8}
+        >
+          <SidebarItem icon={<FaLeaf />} text='Newest' />
+          <SidebarItem icon={<FaLevelUpAlt />} text='Trending' />
+          <SidebarItem icon={<FaRandom />} text='Random' />
+          <SidebarItem icon={<FaStar />} text='My favorites' />
+          <SidebarItem icon={<FaCubes />} text='My collection' />
+        </VStack>
+      ) : null}
     </Box>
   );
 });

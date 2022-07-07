@@ -15,7 +15,7 @@ export class UiStore {
 
   storeActiveGradientBackground(value: boolean) {
     localStorage.setItem('gradient', JSON.stringify(value));
-    this.activeGradientBackground = value;
+    this.setActiveGradientBackground(value);
   }
 
   fetchActiveGradientBackground() {

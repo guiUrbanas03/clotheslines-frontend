@@ -2,6 +2,7 @@ import { AxiosInstance } from 'axios';
 import ClotheslinesApiService from '../services/clotheslinesApiService/clothesLinesApiService';
 import { AppApi } from './api.types';
 import { auth } from './auth/auth';
+import { playlist } from './playlist/playlist';
 import { user } from './user/user';
 
 export const api = (): AppApi => {
@@ -11,5 +12,6 @@ export const api = (): AppApi => {
   return Object.freeze({
     auth: auth(axiosApi, axiosUrl),
     user: user(axiosApi),
+    playlist: playlist(axiosApi),
   });
 };

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
 import { Box, HStack, Image, useColorModeValue } from '@chakra-ui/react';
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
 import Logo from '../../assets/svg/logo.svg';
@@ -7,9 +7,13 @@ import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 
 const Header: FunctionComponent = observer((): JSX.Element => {
+  const calc = useCallback(
+    (width: number): string => `calc(100% - ${width}px)`,
+    [],
+  );
   return (
     <Box
-      bgColor={useColorModeValue('whiteAlpha.100', 'blackAlpha.100')}
+      bgColor={useColorModeValue('whiteAlpha.50', 'blackAlpha.50')}
       paddingX={[4, 6, 8]}
       paddingTop={4}
       paddingBottom={2}
@@ -17,7 +21,7 @@ const Header: FunctionComponent = observer((): JSX.Element => {
       position='fixed'
       top='0'
       right='0'
-      width={['100%', '100%', 'calc(100% - 220px)']}
+      width={['100%', '100%', calc(80), calc(80), calc(220)]}
       placeItems='center'
       zIndex={100}
       _before={{

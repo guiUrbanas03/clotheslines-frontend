@@ -22,7 +22,7 @@ const Sidebar: FC = observer((): JSX.Element => {
       left='0'
       top='0'
       position='fixed'
-      width={['0', '0', '220px']}
+      width={['0', '0', '80px', '80px', '220px']}
       height='100vh'
       backgroundImage={useColorModeValue(asideBuilding, asideBuildingDark)}
       backgroundRepeat='no-repeat'
@@ -60,7 +60,7 @@ const Sidebar: FC = observer((): JSX.Element => {
           <SidebarItem icon={<FaLevelUpAlt />} text='Trending' />
           <SidebarItem icon={<FaRandom />} text='Random' />
           <SidebarItem icon={<FaStar />} text='My favorites' />
-          <SidebarItem icon={<FaCubes />} text='My collection' />
+          <SidebarItem icon={<FaCubes />} text='My playlists' />
         </VStack>
       ) : null}
     </Box>

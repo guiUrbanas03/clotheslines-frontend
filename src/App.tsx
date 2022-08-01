@@ -5,6 +5,7 @@ import { Router } from './routes';
 import { theme, themeWithGradient } from './themes/chakra-ui';
 import { observer } from 'mobx-react';
 import { useStores } from './hooks';
+import '@fontsource/poppins/300.css';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';

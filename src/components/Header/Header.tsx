@@ -5,6 +5,7 @@ import Logo from '../../assets/svg/logo.svg';
 import LogoDark from '../../assets/svg/logo-dark.svg';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
+import UserProfileLink from './components/UserProfileLink/UserProfileLink';
 
 const Header: FunctionComponent = observer((): JSX.Element => {
   const calc = useCallback(
@@ -12,12 +13,11 @@ const Header: FunctionComponent = observer((): JSX.Element => {
     [],
   );
 
+  const logo = useColorModeValue(Logo, LogoDark);
   const headerBackgroundColor = useColorModeValue(
     'whiteAlpha.50',
     'blackAlpha.50',
   );
-
-  const logo = useColorModeValue(Logo, LogoDark);
 
   return (
     <Box
@@ -50,7 +50,10 @@ const Header: FunctionComponent = observer((): JSX.Element => {
             <Image width={['100px', '125px']} src={logo} alt='logo' />
           </Box>
         </Link>
-        <MenuDrawer />
+        <HStack>
+          <UserProfileLink />
+          <MenuDrawer />
+        </HStack>
       </HStack>
     </Box>
   );

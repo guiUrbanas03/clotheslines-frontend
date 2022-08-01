@@ -4,17 +4,19 @@ import { Box, Heading, Text } from '@chakra-ui/react';
 import Clothesline from '../../components/Clothesline/Clothesline';
 import Card from '../../components/Card/Card';
 import LoginForm from '../../components/forms/LoginForm/LoginForm';
+import LayoutContainer from '../../components/LayoutContainer/LayoutContainer';
 
 export const HomePage: React.FunctionComponent = observer((): JSX.Element => {
   return (
     <>
-      <Box ml={['0', '0', '220px']} mt='80px' paddingX={[4, 6, 8]}>
+      <LayoutContainer boxProps={{ marginTop: '80px' }}>
         <Heading size='lg' textAlign={['center', 'left']} mb={2}>
-          Share your tiny playlists
+          A home for tiny playlists
         </Heading>
         <Text textAlign={['center', 'left']}>Share and discover new songs</Text>
-      </Box>
-      <Box ml={['0', '0', '183px']}>
+      </LayoutContainer>
+
+      <LayoutContainer gap={false} boxProps={{ paddingX: 0 }}>
         <Clothesline />
         <Box paddingX={[4, 6, 8]} mt={2}>
           <Card
@@ -24,7 +26,7 @@ export const HomePage: React.FunctionComponent = observer((): JSX.Element => {
             <LoginForm />
           </Card>
         </Box>
-      </Box>
+      </LayoutContainer>
     </>
   );
 });

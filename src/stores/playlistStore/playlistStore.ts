@@ -54,35 +54,8 @@ export class PlaylistStore {
     this.paginationCursor.next = cursor;
   };
 
-  setObservedPlaylistElement = (playlistElement: HTMLElement): void => {
-    this.observedPlaylistElement = playlistElement;
-  };
-
   generatePlaylistsRowKey = (playlistsRow: Array<Playlist>) => {
     return playlistsRow.reduce((key, playlist) => key + playlist.id, '');
-  };
-
-  fetchBasePaginatedPlaylists = async (cursor: string) => {
-    try {
-      this.setStatus('fetching');
-
-      this.setCurrentPaginationCursor(cursor);
-
-      const res = await api().playlist.paginatedList(
-        this.paginationCursor.current,
-      );
-
-      if (res && res.status === 200) {
-        this.setStatus('success');
-
-        return res;
-      }
-    } catch (error) {
-      this.setStatus('error');
-      console.error(error);
-    } finally {
-      this.setStatus('idle');
-    }
   };
 
   fetchCursorPaginatedPlaylists = async () => {

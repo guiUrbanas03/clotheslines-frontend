@@ -10,7 +10,6 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import { rootStore } from './stores';
 
 const App: React.FunctionComponent = observer((): JSX.Element | null => {
   const [appIsReady, setAppIsReady] = useState<boolean>(false);
@@ -20,7 +19,6 @@ const App: React.FunctionComponent = observer((): JSX.Element | null => {
     async function prepare() {
       try {
         ClotheslinesApiService.init();
-        rootStore.init();
         uiStore.fetchActiveGradientBackground();
         authStore.fetchIsLoggedIn();
 

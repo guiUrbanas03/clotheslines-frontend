@@ -5,11 +5,16 @@ import { observer } from 'mobx-react';
 
 const SidebarItem: FunctionComponent<SidebarItemProps> = observer(
   ({ icon, text, color = 'white' }): JSX.Element => {
+    const sidebarItemBackgroundColor = useColorModeValue(
+      'whiteAlpha.400',
+      'blackAlpha.400',
+    );
+
     return (
       <HStack
         color={color}
         cursor='pointer'
-        bgColor={useColorModeValue('whiteAlpha.400', 'blackAlpha.400')}
+        bgColor={sidebarItemBackgroundColor}
         alignItems='center'
         justifyContent='center'
         px={4}

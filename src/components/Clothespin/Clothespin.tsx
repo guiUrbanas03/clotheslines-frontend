@@ -9,10 +9,12 @@ const Clothespin: FunctionComponent<ClothespinProps> = observer(
     darkColor = '#B05787',
     boxStyle = {},
   }): JSX.Element => {
+    const clothespinBackgroundColor = useColorModeValue(lightColor, darkColor);
+
     return (
       <Box
         {...boxStyle}
-        bgColor={useColorModeValue(lightColor, darkColor)}
+        bgColor={clothespinBackgroundColor}
         width='30px'
         height='50px'
         rounded='md'

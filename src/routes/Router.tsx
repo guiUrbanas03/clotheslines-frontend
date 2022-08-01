@@ -20,7 +20,7 @@ const Router: React.FunctionComponent = observer((): JSX.Element => {
               element={
                 <ProtectedRoute
                   hasAccess={!authStore.isAuthenticated}
-                  redirectTo='profile'
+                  redirectTo='playlists'
                 />
               }
             >

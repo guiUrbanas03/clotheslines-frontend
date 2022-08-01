@@ -11,9 +11,17 @@ const Header: FunctionComponent = observer((): JSX.Element => {
     (width: number): string => `calc(100% - ${width}px)`,
     [],
   );
+
+  const headerBackgroundColor = useColorModeValue(
+    'whiteAlpha.50',
+    'blackAlpha.50',
+  );
+
+  const logo = useColorModeValue(Logo, LogoDark);
+
   return (
     <Box
-      bgColor={useColorModeValue('whiteAlpha.50', 'blackAlpha.50')}
+      bgColor={headerBackgroundColor}
       paddingX={[4, 6, 8]}
       paddingTop={4}
       paddingBottom={2}
@@ -39,11 +47,7 @@ const Header: FunctionComponent = observer((): JSX.Element => {
       <HStack width='100%' justifyContent='space-between' alignItems='center'>
         <Link to='/'>
           <Box>
-            <Image
-              width={['100px', '125px']}
-              src={useColorModeValue(Logo, LogoDark)}
-              alt='logo'
-            />
+            <Image width={['100px', '125px']} src={logo} alt='logo' />
           </Box>
         </Link>
         <MenuDrawer />

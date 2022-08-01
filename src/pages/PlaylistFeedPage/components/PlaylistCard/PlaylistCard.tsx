@@ -13,11 +13,17 @@ import { observer } from 'mobx-react';
 import Clothespin from '../../../../components/Clothespin/Clothespin';
 import { PlaylistCardProps } from './PlaylistCard.types';
 
-import HeartIconSvg from '../../../../assets/svg/heart-icon.svg';
+import heartIconSvg from '../../../../assets/svg/heart-icon.svg';
 import PlaylistSongItem from '../PlaylistSongItem/PlaylistSongItem';
 
 const PlaylistCard: FC<PlaylistCardProps> = observer(
   forwardRef(({ playlist }, ref): JSX.Element => {
+    const cardHeaderBackgroundColor = useColorModeValue(
+      'blue.300',
+      'dark.secondary',
+    );
+    const cardBackgroundColor = useColorModeValue('white', 'dark.ternary');
+
     const handleClickHeart = () => {
       alert('dá o like logo ai');
     };
@@ -48,7 +54,12 @@ const PlaylistCard: FC<PlaylistCardProps> = observer(
             transform: 'translateX(-50%)',
           }}
         />
-        <Box bgColor={useColorModeValue('blue.300', 'dark.secondary')} roundedTop='lg' paddingX={4} paddingY={2}>
+        <Box
+          bgColor={cardHeaderBackgroundColor}
+          roundedTop='lg'
+          paddingX={4}
+          paddingY={2}
+        >
           <Flex justifyContent='space-between' alignItems='center'>
             <Text fontWeight='medium' noOfLines={1} color='white'>
               {playlist.title}
@@ -57,7 +68,7 @@ const PlaylistCard: FC<PlaylistCardProps> = observer(
               onClick={handleClickHeart}
               shadow='lg'
               rounded='full'
-              icon={<Image src={HeartIconSvg} />}
+              icon={<Image src={heartIconSvg} />}
               aria-label='heart'
             />
           </Flex>
@@ -68,7 +79,7 @@ const PlaylistCard: FC<PlaylistCardProps> = observer(
           padding={4}
           shadow='lg'
           roundedBottom='lg'
-          bgColor={useColorModeValue('white', 'dark.ternary')}
+          bgColor={cardBackgroundColor}
           divider={<StackDivider />}
         >
           {playlist.songs.map((song) => (

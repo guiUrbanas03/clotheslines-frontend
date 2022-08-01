@@ -16,6 +16,11 @@ import LayoutContainer from '../../components/LayoutContainer/LayoutContainer';
 
 export const ProfilePage: React.FunctionComponent = observer(
   (): JSX.Element => {
+    const arrowBackgroundColor = useColorModeValue(
+      'whiteAlpha.600',
+      'whiteAlpha.200',
+    );
+
     return (
       <>
         <LayoutContainer boxProps={{ mt: '80px' }}>
@@ -24,7 +29,7 @@ export const ProfilePage: React.FunctionComponent = observer(
               <IconButton
                 icon={<FaArrowLeft />}
                 aria-label='back'
-                bgColor={useColorModeValue('whiteAlpha.600', 'whiteAlpha.200')}
+                bgColor={arrowBackgroundColor}
               />
             </Link>
             <Heading size='lg'>Profile</Heading>

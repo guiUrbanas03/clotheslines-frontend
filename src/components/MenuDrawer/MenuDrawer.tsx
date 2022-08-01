@@ -40,13 +40,23 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
     await authStore.logout();
   };
 
+  const drawerButtonColor = useColorModeValue('#333333', 'dark.ternary');
+  const drawerContentColor = useColorModeValue(
+    'rgba(255, 255, 255, 0.15)',
+    'blackAlpha.100',
+  );
+  const iconButtonColor = useColorModeValue('whiteAlpha.700', 'dark.ternary');
+  const logoutButtonColor = useColorModeValue(
+    'whiteAlpha.600',
+    'blackAlpha.400',
+  );
   return (
     <>
       <IconButton
         opacity={isOpen ? 0 : 1}
         aria-label='menu'
         icon={<FaBars />}
-        bgColor={useColorModeValue('#333333', 'dark.ternary')}
+        bgColor={drawerButtonColor}
         color='white'
         onClick={onOpen}
         transition='opacity 0.5s'
@@ -54,10 +64,7 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
       <Drawer isOpen={isOpen} placement='right' onClose={onClose}>
         <DrawerContent
           shadow='lg'
-          bgColor={useColorModeValue(
-            'rgba(255, 255, 255, 0.15)',
-            'blackAlpha.100',
-          )}
+          bgColor={drawerContentColor}
           _before={{
             content: "''",
             position: 'absolute',
@@ -86,10 +93,7 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
               <HStack alignItems='stretch' justifyContent='space-between'>
                 <Tooltip label='day' hasArrow>
                   <IconButton
-                    bgColor={useColorModeValue(
-                      'whiteAlpha.700',
-                      'dark.ternary',
-                    )}
+                    bgColor={iconButtonColor}
                     shadow='md'
                     size='lg'
                     icon={<FaSun />}
@@ -100,10 +104,7 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
 
                 <Tooltip label='sunrise' hasArrow>
                   <IconButton
-                    bgColor={useColorModeValue(
-                      'whiteAlpha.700',
-                      'dark.ternary',
-                    )}
+                    bgColor={iconButtonColor}
                     shadow='md'
                     size='lg'
                     icon={<RiHazeFill />}
@@ -114,10 +115,7 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
 
                 <Tooltip label='night' hasArrow>
                   <IconButton
-                    bgColor={useColorModeValue(
-                      'whiteAlpha.700',
-                      'dark.ternary',
-                    )}
+                    bgColor={iconButtonColor}
                     shadow='md'
                     size='lg'
                     icon={<FaMoon />}
@@ -128,10 +126,7 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
 
                 <Tooltip label='sunset' hasArrow>
                   <IconButton
-                    bgColor={useColorModeValue(
-                      'whiteAlpha.700',
-                      'dark.ternary',
-                    )}
+                    bgColor={iconButtonColor}
                     shadow='md'
                     size='lg'
                     icon={<GiMoonOrbit />}
@@ -146,10 +141,7 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
                   <Button
                     width='100%'
                     onClick={handleLogout}
-                    bgColor={useColorModeValue(
-                      'whiteAlpha.600',
-                      'blackAlpha.400',
-                    )}
+                    bgColor={logoutButtonColor}
                     shadow='md'
                   >
                     <HStack>

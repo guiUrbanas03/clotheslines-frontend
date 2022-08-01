@@ -16,6 +16,11 @@ import { useStores } from '../../hooks';
 const Sidebar: FC = observer((): JSX.Element => {
   const { authStore } = useStores();
 
+  const asideBackgroundImage = useColorModeValue(
+    asideBuilding,
+    asideBuildingDark,
+  );
+
   return (
     <Box
       as='aside'
@@ -24,7 +29,7 @@ const Sidebar: FC = observer((): JSX.Element => {
       position='fixed'
       width={['0', '0', '80px', '80px', '220px']}
       height='100vh'
-      backgroundImage={useColorModeValue(asideBuilding, asideBuildingDark)}
+      backgroundImage={asideBackgroundImage}
       backgroundRepeat='no-repeat'
       backgroundSize='cover'
       backgroundPosition='right'

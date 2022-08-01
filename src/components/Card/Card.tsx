@@ -11,6 +11,8 @@ const Card: FunctionComponent<CardProps> = observer(
     boxStyle = {},
     withClothespin = false,
   }): JSX.Element => {
+    const cardBackgroundColor = useColorModeValue('white', 'dark.ternary');
+
     return (
       <Box position='relative' {...wrapperBoxStyle}>
         {withClothespin ? (
@@ -27,7 +29,7 @@ const Card: FunctionComponent<CardProps> = observer(
           padding={8}
           shadow='lg'
           rounded='lg'
-          bgColor={useColorModeValue('white', 'dark.ternary')}
+          bgColor={cardBackgroundColor}
           {...boxStyle}
         >
           {children}

@@ -2,9 +2,10 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from '../layouts/main/MainLayout';
-import { HomePage, LoginPage, ProfilePage, RegisterPage } from '../pages';
+import { HomePage, ProfilePage, RegisterPage } from '../pages';
 import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 import { useStores } from '../hooks';
+import PlaylistFeedPage from '../pages/PlaylistFeedPage/PlaylistFeedPage';
 
 const Router: React.FunctionComponent = observer((): JSX.Element => {
   const { authStore } = useStores();
@@ -14,6 +15,7 @@ const Router: React.FunctionComponent = observer((): JSX.Element => {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path='/'>
+            <Route path='playlists' element={<PlaylistFeedPage />} />
             <Route
               element={
                 <ProtectedRoute
@@ -23,7 +25,6 @@ const Router: React.FunctionComponent = observer((): JSX.Element => {
               }
             >
               <Route index element={<HomePage />} />
-              <Route path='login' element={<LoginPage />} />
               <Route path='register' element={<RegisterPage />} />
             </Route>
             <Route

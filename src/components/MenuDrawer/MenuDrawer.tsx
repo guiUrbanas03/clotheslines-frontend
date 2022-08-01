@@ -11,30 +11,27 @@ import {
   IconButton,
   Spacer,
   Text,
-  Tooltip,
-  useColorMode,
   useColorModeValue,
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
-import { FaBars, FaMoon, FaSignOutAlt, FaSun, FaTimes } from 'react-icons/fa';
-import { RiHazeFill } from 'react-icons/ri';
-import { GiMoonOrbit } from 'react-icons/gi';
+import {
+  FaBars,
+  FaKey,
+  FaPlus,
+  FaSignOutAlt,
+  FaTimes,
+  FaUser,
+} from 'react-icons/fa';
 import { useStores } from '../../hooks';
 import { observer } from 'mobx-react';
+import { Link } from 'react-router-dom';
+import Protected from '../Protected/Protected';
+import MenuDrawerThemeButtons from './components/MenuDrawerThemeButtons/MenuDrawerThemeButtons';
 
 const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { setColorMode } = useColorMode();
-  const { authStore, uiStore } = useStores();
-
-  const handleChangeColorMode = (
-    mode: 'light' | 'dark',
-    withGradient: boolean,
-  ) => {
-    setColorMode(mode);
-    uiStore.storeActiveGradientBackground(withGradient);
-  };
+  const { authStore } = useStores();
 
   const handleLogout = async () => {
     await authStore.logout();
@@ -45,8 +42,7 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
     'rgba(255, 255, 255, 0.15)',
     'blackAlpha.100',
   );
-  const iconButtonColor = useColorModeValue('whiteAlpha.700', 'dark.ternary');
-  const logoutButtonColor = useColorModeValue(
+  const stackButtonColor = useColorModeValue(
     'whiteAlpha.600',
     'blackAlpha.400',
   );
@@ -89,59 +85,51 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
             <Divider bgColor='white' />
           </DrawerHeader>
           <DrawerBody>
-            <VStack height='100%' alignItems='stretch'>
-              <HStack alignItems='stretch' justifyContent='space-between'>
-                <Tooltip label='day' hasArrow>
-                  <IconButton
-                    bgColor={iconButtonColor}
+            <VStack height='100%' alignItems='stretch' spacing={6}>
+              <Link to='create-playlist'>
+                <Button
+                  leftIcon={<FaPlus />}
+                  width='100%'
+                  bgColor={stackButtonColor}
+                  shadow='md'
+                >
+                  Create playlist
+                </Button>
+              </Link>
+              <Protected
+                renderIf={authStore.isAuthenticated}
+                fallback={
+                  <Link to='/'>
+                    <Button
+                      leftIcon={<FaKey />}
+                      width='100%'
+                      bgColor={stackButtonColor}
+                      shadow='md'
+                    >
+                      Login
+                    </Button>
+                  </Link>
+                }
+              >
+                <Link to='profile'>
+                  <Button
+                    leftIcon={<FaUser />}
+                    width='100%'
+                    bgColor={stackButtonColor}
                     shadow='md'
-                    size='lg'
-                    icon={<FaSun />}
-                    aria-label='day'
-                    onClick={() => handleChangeColorMode('light', false)}
-                  />
-                </Tooltip>
-
-                <Tooltip label='sunrise' hasArrow>
-                  <IconButton
-                    bgColor={iconButtonColor}
-                    shadow='md'
-                    size='lg'
-                    icon={<RiHazeFill />}
-                    aria-label='sunset'
-                    onClick={() => handleChangeColorMode('light', true)}
-                  />
-                </Tooltip>
-
-                <Tooltip label='night' hasArrow>
-                  <IconButton
-                    bgColor={iconButtonColor}
-                    shadow='md'
-                    size='lg'
-                    icon={<FaMoon />}
-                    aria-label='night'
-                    onClick={() => handleChangeColorMode('dark', false)}
-                  />
-                </Tooltip>
-
-                <Tooltip label='sunset' hasArrow>
-                  <IconButton
-                    bgColor={iconButtonColor}
-                    shadow='md'
-                    size='lg'
-                    icon={<GiMoonOrbit />}
-                    aria-label='moon'
-                    onClick={() => handleChangeColorMode('dark', true)}
-                  />
-                </Tooltip>
-              </HStack>
+                  >
+                    Profile
+                  </Button>
+                </Link>
+              </Protected>
+              <MenuDrawerThemeButtons />
               <Spacer />
-              {authStore.isLoggedIn ? (
+              <Protected renderIf={authStore.isLoggedIn}>
                 <Box paddingBottom={4}>
                   <Button
                     width='100%'
                     onClick={handleLogout}
-                    bgColor={logoutButtonColor}
+                    bgColor={stackButtonColor}
                     shadow='md'
                   >
                     <HStack>
@@ -150,7 +138,7 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
                     </HStack>
                   </Button>
                 </Box>
-              ) : null}
+              </Protected>
             </VStack>
           </DrawerBody>
         </DrawerContent>

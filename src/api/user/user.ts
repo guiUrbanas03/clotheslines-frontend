@@ -1,6 +1,4 @@
 import { AxiosInstance } from 'axios';
-import { User } from '../../models/User/User';
-import { rootStore } from '../../stores';
 import { userTransformer } from '../../transformers/user/userTransformer';
 import { UserApi } from './user.types';
 

@@ -41,7 +41,7 @@ const LoginForm: FC = (): JSX.Element => {
         position: 'bottom-right',
       });
 
-      navigate('/profile');
+      navigate('/playlists');
     } else {
       toast({
         title: 'Invalid credentials.',
@@ -106,7 +106,7 @@ const LoginForm: FC = (): JSX.Element => {
               shadow='md'
               size='lg'
               fontSize='md'
-              onClick={() => alert('hello guest!')}
+              onClick={() => navigate('playlists')}
             >
               Enter as a guest
             </Button>

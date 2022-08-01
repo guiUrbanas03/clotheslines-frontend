@@ -5,3 +5,5 @@ export type ApiResponse<T> =
       message: string;
     }
   | undefined;
+
+export type ApiResponsePromise<T> = Promise<ApiResponse<T>> | undefined;

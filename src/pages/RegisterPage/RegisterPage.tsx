@@ -12,12 +12,13 @@ import Clothesline from '../../components/Clothesline/Clothesline';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import RegisterUserForm from '../../components/forms/RegisterUserForm/RegisterUserForm';
+import LayoutContainer from '../../components/LayoutContainer/LayoutContainer';
 
 export const RegisterPage: React.FunctionComponent = observer(
   (): JSX.Element => {
     return (
       <>
-        <Box ml={['0', '0', '220px']} mt='80px' paddingX={[4, 6, 8]}>
+        <LayoutContainer boxProps={{ mt: '80px' }}>
           <HStack spacing={2}>
             <Link to='/'>
               <IconButton
@@ -28,8 +29,9 @@ export const RegisterPage: React.FunctionComponent = observer(
             </Link>
             <Heading size='lg'>Register</Heading>
           </HStack>
-        </Box>
-        <Box ml={['0', '0', '183px']}>
+        </LayoutContainer>
+
+        <LayoutContainer gap={false} boxProps={{ paddingX: 0 }}>
           <Clothesline />
           <Box paddingX={[4, 6, 8]} mt={2}>
             <Card
@@ -39,7 +41,7 @@ export const RegisterPage: React.FunctionComponent = observer(
               <RegisterUserForm />
             </Card>
           </Box>
-        </Box>
+        </LayoutContainer>
       </>
     );
   },

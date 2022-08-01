@@ -6,22 +6,14 @@ import LogoDark from '../../assets/svg/logo-dark.svg';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import UserProfileLink from './components/UserProfileLink/UserProfileLink';
+import { calc } from '../../utils/calc';
 
 const Header: FunctionComponent = observer((): JSX.Element => {
-  const calc = useCallback(
-    (width: number): string => `calc(100% - ${width}px)`,
-    [],
-  );
-
   const logo = useColorModeValue(Logo, LogoDark);
-  const headerBackgroundColor = useColorModeValue(
-    'whiteAlpha.50',
-    'blackAlpha.50',
-  );
 
   return (
     <Box
-      bgColor={headerBackgroundColor}
+      bgColor='transparent'
       paddingX={[4, 6, 8]}
       paddingTop={4}
       paddingBottom={2}
@@ -29,7 +21,7 @@ const Header: FunctionComponent = observer((): JSX.Element => {
       position='fixed'
       top='0'
       right='0'
-      width={['100%', '100%', calc(80), calc(80), calc(220)]}
+      width={['100%', '100%', calc('80px'), calc('80px'), calc('220px')]}
       placeItems='center'
       zIndex={100}
       _before={{

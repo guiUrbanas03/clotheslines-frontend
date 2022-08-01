@@ -1,4 +1,4 @@
-import { AxiosError, AxiosInstance } from 'axios';
+import { AxiosInstance } from 'axios';
 import { userTransformer } from '../../transformers/user/userTransformer';
 import { AuthApi } from './auth.types';
 
@@ -42,7 +42,6 @@ export const auth = (
           },
         };
       } catch (error: any) {
-        const { status, data } = error.response;
         console.error(error);
       }
     },

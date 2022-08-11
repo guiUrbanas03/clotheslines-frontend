@@ -1,13 +1,17 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Box, Spinner } from '@chakra-ui/react';
 import PlaylistsRow from './components/PlaylistsRow/PlaylistsRow';
 import { observer } from 'mobx-react';
 import { useStores } from '../../hooks';
 import { useIntersectionObserverRef } from '../../hooks/useIntersectionObserverRef';
 import LayoutContainer from '../../components/LayoutContainer/LayoutContainer';
+import Fab from '../../components/Fab/Fab';
+import { FaPlus } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const PlaylistFeedPage: FC = observer((): JSX.Element => {
   const { playlistStore } = useStores();
+  const navigate = useNavigate();
 
   const {
     isReadyToFetch,
@@ -46,6 +50,20 @@ const PlaylistFeedPage: FC = observer((): JSX.Element => {
           </Box>
         </LayoutContainer>
       )}
+      <Fab
+        onClick={() => navigate('/create-playlist')}
+        label='Create playlist'
+        iconButtonProps={{
+          icon: <FaPlus />,
+          size: 'lg',
+          bgColor: 'blue.300',
+          color: 'white',
+          rounded: 'full',
+          right: [4, 4, 8, 6, 8],
+          bottom: 6,
+          'aria-label': 'Create playlist fab',
+        }}
+      />
     </Box>
   );
 });

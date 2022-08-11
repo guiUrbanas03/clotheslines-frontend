@@ -6,6 +6,7 @@ import { HomePage, ProfilePage, RegisterPage } from '../pages';
 import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 import { useStores } from '../hooks';
 import PlaylistFeedPage from '../pages/PlaylistFeedPage/PlaylistFeedPage';
+import CreatePlaylistPage from '../pages/CreatePlaylistPage/CreatePlaylistPage';
 
 const Router: React.FunctionComponent = observer((): JSX.Element => {
   const { authStore } = useStores();
@@ -35,6 +36,7 @@ const Router: React.FunctionComponent = observer((): JSX.Element => {
                 />
               }
             >
+              <Route path='create-playlist' element={<CreatePlaylistPage />} />
               <Route path='profile' element={<ProfilePage />} />
             </Route>
           </Route>

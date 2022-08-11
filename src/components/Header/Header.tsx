@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useCallback } from 'react';
-import { Box, HStack, Image, useColorModeValue } from '@chakra-ui/react';
+import { Box, HStack, Image, Input, useColorModeValue } from '@chakra-ui/react';
 import MenuDrawer from '../MenuDrawer/MenuDrawer';
 import Logo from '../../assets/svg/logo.svg';
 import LogoDark from '../../assets/svg/logo-dark.svg';
@@ -37,11 +37,12 @@ const Header: FunctionComponent = observer((): JSX.Element => {
       }}
     >
       <HStack width='100%' justifyContent='space-between' alignItems='center'>
-        <Link to='/'>
+        <Link to='/playlists'>
           <Box>
             <Image width={['100px', '125px']} src={logo} alt='logo' />
           </Box>
         </Link>
+
         <HStack>
           <UserProfileLink />
           <MenuDrawer />

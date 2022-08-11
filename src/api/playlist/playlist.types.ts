@@ -20,7 +20,9 @@ export type PlaylistApi = {
 
   find: (playlistId: PlaylistId) => ApiResponse<PlaylistObject>;
 
-  store: (payload: any) => ApiResponse<PlaylistObject>;
+  store: (
+    payload: any,
+  ) => ApiResponse<PlaylistObject>;
 
   update: (playlistId: PlaylistId, payload: any) => ApiResponse<PlaylistObject>;
 

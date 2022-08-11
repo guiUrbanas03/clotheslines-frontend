@@ -39,17 +39,19 @@ export const playlist = (axiosApi: AxiosInstance): PlaylistApi => {
     },
 
     store: async (payload) => {
-      const res = await axiosApi.post(`/playlists`, payload);
+      try {
+        const res = await axiosApi.post(`/playlists`, payload);
 
-      console.log(res);
-
-      return {
-        status: res.status,
-        message: res.data.message,
-        data: {
-          playlist: playlistTransformer(res.data.playlist),
-        },
-      };
+        return {
+          status: res.status,
+          message: res.data.message,
+          data: {
+            playlist: playlistTransformer(res.data.playlist),
+          },
+        };
+      } catch (error) {
+        console.error(error);
+      }
     },
 
     update: async (playlistId, payload) => {

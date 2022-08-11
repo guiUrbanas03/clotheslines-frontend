@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { api } from '../../api/api';
+import { CreatePlaylistFormValues } from '../../components/forms/CreatePlaylistForm/CreatePlaylistForm.types';
 import { type Playlist } from '../../models/Playlist/Playlist';
 import { FetchingStatus } from '../../types';
 import { PaginationCursor } from './playlistStore.types';
@@ -89,6 +90,12 @@ export class PlaylistStore {
     } finally {
       this.setStatus('idle');
     }
+  };
+
+  createPlaylist = async (payload: CreatePlaylistFormValues) => {
+    const res = await api().playlist.store(payload);
+
+    return res;
   };
 }
 

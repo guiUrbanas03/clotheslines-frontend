@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Box, Spinner } from '@chakra-ui/react';
 import PlaylistsRow from './components/PlaylistsRow/PlaylistsRow';
 import { observer } from 'mobx-react';
@@ -56,7 +56,6 @@ const PlaylistFeedPage: FC = observer((): JSX.Element => {
         iconButtonProps={{
           icon: <FaPlus />,
           size: 'lg',
-          bgColor: 'blue.300',
           color: 'white',
           rounded: 'full',
           right: [4, 4, 8, 6, 8],

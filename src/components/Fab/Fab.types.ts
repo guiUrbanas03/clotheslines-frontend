@@ -5,4 +5,5 @@ export type FabProps = {
   iconButtonProps: IconButtonProps;
   label?: string;
   onClick: MouseEventHandler;
+  colors?: Array<string>;
 };

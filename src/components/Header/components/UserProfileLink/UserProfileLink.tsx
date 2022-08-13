@@ -15,7 +15,8 @@ import Protected from '../../../Protected/Protected';
 const UserProfileLink = observer((): JSX.Element => {
   const { authStore } = useStores();
 
-  const iconButtonColor = useColorModeValue('light.darkGray', 'white');
+  const loginButtonColor = useColorModeValue('#333333', 'dark.ternary');
+  const profileButtonColor = useColorModeValue('#333333', 'white');
 
   return (
     <Protected
@@ -23,7 +24,7 @@ const UserProfileLink = observer((): JSX.Element => {
       fallback={
         <Link to='/'>
           <Button
-            bgColor='blue.300'
+            bgColor={loginButtonColor}
             color='white'
             rounded='md'
             leftIcon={<FaKey />}
@@ -38,7 +39,7 @@ const UserProfileLink = observer((): JSX.Element => {
           <Text fontSize='sm'>{authStore?.user?.profile?.nickname}</Text>
           <IconButton
             variant='link'
-            color={iconButtonColor}
+            color={profileButtonColor}
             icon={<FaUser />}
             aria-label='user'
           ></IconButton>

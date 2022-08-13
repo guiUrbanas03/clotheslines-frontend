@@ -1,5 +1,11 @@
 import React from 'react';
-import { Box, Input, Text, useToast } from '@chakra-ui/react';
+import {
+  Box,
+  Input,
+  Text,
+  useColorModeValue,
+  useToast,
+} from '@chakra-ui/react';
 import { observer } from 'mobx-react';
 import Clothespin from '../../Clothespin/Clothespin';
 import SongsInputs from './components/SongsInputs/SongsInputs';
@@ -14,6 +20,9 @@ const CreatePlaylistForm = observer(() => {
   const { playlistStore } = useStores();
   const toast = useToast();
   const navigate = useNavigate();
+
+  const cardBackgroundColor = useColorModeValue('white', 'dark.ternary');
+  const cardHeaderBgColor = useColorModeValue('blue.300', 'dark.secondary');
 
   return (
     <Box maxW='600px' margin='0 auto' position='relative' shadow='lg'>
@@ -64,7 +73,12 @@ const CreatePlaylistForm = observer(() => {
       >
         {(formik: FormikProps<CreatePlaylistFormValues>) => (
           <form onSubmit={formik.handleSubmit}>
-            <Box bgColor='blue.300' paddingX={6} paddingY={4} roundedTop='lg'>
+            <Box
+              bgColor={cardHeaderBgColor}
+              paddingX={6}
+              paddingY={4}
+              roundedTop='lg'
+            >
               <Input
                 id='playlist.title'
                 color='white'
@@ -79,7 +93,7 @@ const CreatePlaylistForm = observer(() => {
                 <ErrorMessage component='div' name='playlist.title' />
               </Box>
             </Box>
-            <Box bgColor='white' roundedBottom='lg'>
+            <Box bgColor={cardBackgroundColor} roundedBottom='lg'>
               <SongsInputs formik={formik} />
             </Box>
             <Fab
@@ -88,7 +102,6 @@ const CreatePlaylistForm = observer(() => {
                 icon: <Text fontSize='md'>Submit playlist</Text>,
                 padding: 4,
                 size: 'lg',
-                bgColor: 'blue.300',
                 color: 'white',
                 rounded: 'full',
                 right: [4, 4, 8, 6, 8],

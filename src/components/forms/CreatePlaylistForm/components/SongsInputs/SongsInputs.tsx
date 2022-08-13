@@ -1,11 +1,23 @@
 import React, { FC } from 'react';
-import { Box, Divider, HStack, Input, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Divider,
+  HStack,
+  Input,
+  useColorModeValue,
+  VStack,
+} from '@chakra-ui/react';
 import { observer } from 'mobx-react';
 import { SongFormItemProps } from './SongsInputs.types';
 import { ErrorMessage, FieldArray } from 'formik';
 import Protected from '../../../../Protected/Protected';
 
 const SongsInputs: FC<SongFormItemProps> = observer(({ formik }) => {
+  const inputColor = useColorModeValue('gray.100', 'dark.secondary');
+  const borderColor = useColorModeValue('#C4C4C499', '#FFFFFF44');
+  const placeholderColor = useColorModeValue('light.mediumGray', '#DDDDDD');
+  const hoverColor = useColorModeValue('#63B3ED33', '#1A365D33');
+
   return (
     <Box w='full' alignItems='stretch' paddingY={2}>
       <FieldArray name='songs'>
@@ -26,9 +38,9 @@ const SongsInputs: FC<SongFormItemProps> = observer(({ formik }) => {
                         id={`songs.${index}.name`}
                         fontWeight='medium'
                         variant='filled'
-                        bgColor='gray.100'
+                        bgColor={inputColor}
                         placeholder='Song name'
-                        _placeholder={{ color: 'light.mediumGray' }}
+                        _placeholder={{ color: placeholderColor }}
                         {...formik.getFieldProps(`songs.${index}.name`)}
                       />
                       <Box color='red.300' fontSize='sm' mt={1}>
@@ -47,9 +59,9 @@ const SongsInputs: FC<SongFormItemProps> = observer(({ formik }) => {
                           width='auto'
                           fontSize='sm'
                           variant='filled'
-                          bgColor='gray.100'
+                          bgColor={inputColor}
                           placeholder='Artist name'
-                          _placeholder={{ color: 'light.mediumGray' }}
+                          _placeholder={{ color: placeholderColor }}
                           {...formik.getFieldProps(`songs.${index}.artist`)}
                         />
                         <Box color='red.300' fontSize='sm' mt={1}>
@@ -66,9 +78,9 @@ const SongsInputs: FC<SongFormItemProps> = observer(({ formik }) => {
                           flex='1'
                           fontSize='sm'
                           variant='filled'
-                          bgColor='gray.100'
+                          bgColor={inputColor}
                           placeholder='Album name'
-                          _placeholder={{ color: 'light.mediumGray' }}
+                          _placeholder={{ color: placeholderColor }}
                           {...formik.getFieldProps(`songs.${index}.album`)}
                         />
                         <Box color='red.300' fontSize='sm' mt={1}>
@@ -85,10 +97,11 @@ const SongsInputs: FC<SongFormItemProps> = observer(({ formik }) => {
             </VStack>
             <Protected renderIf={formik.values.songs.length < 5}>
               <Box
-                border='1px dashed #C4C4C499'
+                border={`1px dashed ${borderColor}`}
                 marginX={6}
                 marginY={4}
                 rounded='lg'
+                _hover={{ bgColor: hoverColor }}
               >
                 <Box
                   opacity={0.4}
@@ -103,10 +116,11 @@ const SongsInputs: FC<SongFormItemProps> = observer(({ formik }) => {
                       disabled
                       fontWeight='medium'
                       variant='filled'
-                      bgColor='gray.100'
+                      bgColor={inputColor}
                       placeholder='Song name'
-                      _placeholder={{ color: 'light.mediumGray' }}
+                      _placeholder={{ color: placeholderColor }}
                       _disabled={{ cursor: 'pointer' }}
+                      _hover={{}}
                     />
                     <HStack alignItems='center' w='full'>
                       <Input
@@ -115,20 +129,22 @@ const SongsInputs: FC<SongFormItemProps> = observer(({ formik }) => {
                         width='auto'
                         fontSize='sm'
                         variant='filled'
-                        bgColor='gray.100'
+                        bgColor={inputColor}
                         placeholder='Artist name'
-                        _placeholder={{ color: 'light.mediumGray' }}
+                        _placeholder={{ color: placeholderColor }}
                         _disabled={{ cursor: 'pointer' }}
+                        _hover={{}}
                       />
                       <Input
                         disabled
                         flex='1'
                         fontSize='sm'
                         variant='filled'
-                        bgColor='gray.100'
+                        bgColor={inputColor}
                         placeholder='Album name'
-                        _placeholder={{ color: 'light.mediumGray' }}
+                        _placeholder={{ color: placeholderColor }}
                         _disabled={{ cursor: 'pointer' }}
+                        _hover={{}}
                       />
                     </HStack>
                   </VStack>

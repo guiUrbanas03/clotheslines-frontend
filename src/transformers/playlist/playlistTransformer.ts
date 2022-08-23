@@ -17,6 +17,7 @@ export const playlistTransformer = (json: Record<string, any>): Playlist => {
     title: json.title,
     description: json.description,
     songs: transformSongs(json.songs),
+    heartsCount: json.hearts_count,
   });
 };
 

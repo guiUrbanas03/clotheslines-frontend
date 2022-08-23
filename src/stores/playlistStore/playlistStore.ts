@@ -2,18 +2,22 @@ import { makeAutoObservable } from 'mobx';
 import { api } from '../../api/api';
 import { CreatePlaylistFormValues } from '../../components/forms/CreatePlaylistForm/CreatePlaylistForm.types';
 import { type Playlist } from '../../models/Playlist/Playlist';
+import { User } from '../../models/User/User';
 import { FetchingStatus } from '../../types';
+import { authStore } from '../authStore';
 import { PaginationCursor } from './playlistStore.types';
 
 export class PlaylistStore {
   playlists: Map<string, Array<Playlist>> = new Map();
   status: FetchingStatus = 'idle';
   hasMore: boolean = true;
-  observedPlaylistElement: HTMLElement = {} as HTMLElement;
   paginationCursor: PaginationCursor = {
     current: '',
     next: null,
   };
+  openedPlaylist: Playlist = null!;
+  openedPlaylistOwner: User = null!;
+  hearts: Set<number> = new Set([]);
 
   constructor() {
     makeAutoObservable(this);
@@ -53,6 +57,18 @@ export class PlaylistStore {
 
   setNextPaginationCursor = (cursor: PaginationCursor['next']) => {
     this.paginationCursor.next = cursor;
+  };
+
+  setOpenedPlaylist = (playlist: Playlist) => {
+    this.openedPlaylist = playlist;
+  };
+
+  setOpenedPlaylistOwner = (user: User) => {
+    this.openedPlaylistOwner = user;
+  };
+
+  setHearts = (hearts: Set<number>) => {
+    this.hearts = hearts;
   };
 
   generatePlaylistsRowKey = (playlistsRow: Array<Playlist>) => {
@@ -97,6 +113,80 @@ export class PlaylistStore {
 
     return res;
   };
+
+  findPlaylist = async (playlistId: number) => {
+    const res = await api().playlist.find(playlistId);
+
+    return res;
+  };
+
+  getPlaylistOwnerUser = async (playlistId: number) => {
+    const res = await api().playlist.owner(playlistId);
+
+    if (res) {
+      this.setOpenedPlaylistOwner(res.data.user);
+
+      return res.data.user;
+    }
+  };
+
+  heart = async (playlist: Playlist) => {
+    if (!authStore.isAuthenticated) {
+      return;
+    }
+
+    const res = await api().playlist.heart(playlist.id);
+
+    this.setHearts(new Set([...this.hearts, playlist.id]));
+
+    await this.fetchHeartsCount(playlist);
+
+    return res;
+  };
+
+  unheart = async (playlist: Playlist) => {
+    if (!authStore.isAuthenticated) {
+      return;
+    }
+
+    const res = await api().playlist.unheart(playlist.id);
+
+    const settedHearts = new Set(this.hearts);
+
+    settedHearts.delete(playlist.id);
+
+    this.setHearts(settedHearts);
+
+    await this.fetchHeartsCount(playlist);
+
+    return res;
+  };
+
+  fetchHearts = async () => {
+    if (!authStore.isAuthenticated) {
+      return;
+    }
+
+    const res = await api().playlist.getHearts();
+
+    if (res) {
+      this.setHearts(new Set(res.data.hearts));
+
+      return res;
+    }
+  };
+
+  fetchHeartsCount = async (playlist: Playlist) => {
+    const res = await api().playlist.heartsCount(playlist.id);
+
+    if (res) {
+      playlist.setHeartsCount(res.data.hearts);
+
+      return res.data.hearts;
+    }
+  };
+
+  isHearted = (playlistId: number) => this.hearts.has(playlistId);
 }
 
 export default new PlaylistStore();

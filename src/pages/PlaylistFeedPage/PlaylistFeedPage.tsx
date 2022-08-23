@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useCallback } from 'react';
 import { Box, Spinner } from '@chakra-ui/react';
 import PlaylistsRow from './components/PlaylistsRow/PlaylistsRow';
 import { observer } from 'mobx-react';
@@ -18,6 +18,7 @@ const PlaylistFeedPage: FC = observer((): JSX.Element => {
     playlistsArray,
     currentCursor,
     nextCursor,
+    hearts,
     fetchCursorPaginatedPlaylists,
     setCurrentPaginationCursor,
   } = playlistStore;
@@ -30,6 +31,15 @@ const PlaylistFeedPage: FC = observer((): JSX.Element => {
   };
 
   const { observedElementRef } = useIntersectionObserverRef(fetchPlaylists);
+
+  const fetchHearts = useCallback(
+    async () => await playlistStore.fetchHearts(),
+    [hearts],
+  );
+
+  useEffect(() => {
+    fetchHearts();
+  }, []);
 
   return (
     <Box mt='60px'>

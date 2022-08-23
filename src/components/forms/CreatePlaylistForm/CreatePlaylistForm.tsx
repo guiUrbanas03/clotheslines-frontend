@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Box,
+  Divider,
   Input,
   Text,
   useColorModeValue,
@@ -15,6 +16,7 @@ import { createPlaylistValidation } from '../../../validations/playlist/createPl
 import { CreatePlaylistFormValues } from './CreatePlaylistForm.types';
 import { useStores } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
+import { FaTextHeight } from 'react-icons/fa';
 
 const CreatePlaylistForm = observer(() => {
   const { playlistStore } = useStores();
@@ -23,6 +25,7 @@ const CreatePlaylistForm = observer(() => {
 
   const cardBackgroundColor = useColorModeValue('white', 'dark.ternary');
   const cardHeaderBgColor = useColorModeValue('blue.300', 'dark.secondary');
+  const placeholderColor = useColorModeValue('light.mediumGray', '#DDDDDD');
 
   return (
     <Box maxW='600px' margin='0 auto' position='relative' shadow='lg'>
@@ -94,6 +97,21 @@ const CreatePlaylistForm = observer(() => {
               </Box>
             </Box>
             <Box bgColor={cardBackgroundColor} roundedBottom='lg'>
+              <Box w='full' alignItems='stretch' paddingX={6} pt={4}>
+                <Input
+                  py={8}
+                  variant='outline'
+                  id='playlist.description'
+                  fontWeight='medium'
+                  placeholder='Description'
+                  _placeholder={{ color: placeholderColor }}
+                  {...formik.getFieldProps('playlist.description')}
+                />
+              </Box>
+              <Box color='red.600' fontSize='sm' mt={1}>
+                <ErrorMessage component='div' name='playlist.description' />
+              </Box>
+              <Divider py={2} />
               <SongsInputs formik={formik} />
             </Box>
             <Fab

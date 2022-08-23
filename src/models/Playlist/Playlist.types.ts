@@ -6,4 +6,5 @@ export type PlaylistConstructor = {
   title: string;
   description: string | null;
   songs: Array<Song>;
+  heartsCount: number;
 };

@@ -7,11 +7,13 @@ export class Playlist {
   title: PlaylistConstructor['title'];
   description: PlaylistConstructor['description'];
   songs: PlaylistConstructor['songs'];
+  heartsCount: PlaylistConstructor['heartsCount'] = 0;
 
   constructor(playlistConstructor: PlaylistConstructor) {
     makeAutoObservable(this);
 
-    const { id, profileId, title, description, songs } = playlistConstructor;
+    const { id, profileId, title, description, songs, heartsCount } =
+      playlistConstructor;
 
     if (id == null) {
       throw new Error('Playlist id cannot be null');
@@ -26,5 +28,10 @@ export class Playlist {
     this.title = title;
     this.description = description;
     this.songs = songs;
+    this.heartsCount = heartsCount;
+  }
+
+  setHeartsCount(heartsCount: number) {
+    this.heartsCount = heartsCount;
   }
 }

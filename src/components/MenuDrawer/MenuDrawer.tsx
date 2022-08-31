@@ -57,7 +57,7 @@ const MenuDrawer: FunctionComponent = observer((): JSX.Element => {
         onClick={onOpen}
         transition='opacity 0.5s'
       />
-      <Drawer isOpen={isOpen} placement='right' onClose={onClose}>
+      <Drawer isOpen={isOpen} placement='right' onClose={onClose} blockScrollOnMount={false}> 
         <DrawerContent
           shadow='lg'
           bgColor={drawerContentColor}

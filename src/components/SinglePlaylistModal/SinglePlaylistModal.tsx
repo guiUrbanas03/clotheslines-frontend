@@ -62,6 +62,7 @@ const SinglePlaylistModal: FC<SinglePlaylistModalProps> = observer(
         >
           <ModalOverlay backdropFilter='blur(8px)' />
           <ModalContent
+            minH='60vh'
             flexDirection='row'
             alignItems='stretch'
             w='full'
@@ -104,7 +105,7 @@ const SinglePlaylistModal: FC<SinglePlaylistModalProps> = observer(
                     height='40px'
                     opacity={0.7}
                     display={{
-                      base: 'block',
+                      base: 'flex',
                       md: 'none',
                     }}
                   >

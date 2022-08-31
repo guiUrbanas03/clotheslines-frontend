@@ -1,52 +1,47 @@
-import { StackDivider, Text, VStack } from '@chakra-ui/react';
-import React from 'react';
+import React, { FC, useEffect } from 'react';
+import {
+  Box,
+  Center,
+  HStack,
+  Spacer,
+  StackDivider,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
+import { useStores } from '../../../../hooks';
+import { observer } from 'mobx-react';
+import { FaCommentSlash } from 'react-icons/fa';
+import PlaylistComment from '../PlaylistComment/PlaylistComment';
 
-const PlaylistComments = () => {
-  return (
-    <VStack divider={<StackDivider opacity={0.5} />} alignItems='stretch'>
-      <VStack alignItems='stretch'>
-        <Text fontSize='sm' fontWeight='semibold'>
-          Comment_nickname 1
-        </Text>
-        <Text fontSize='sm' fontWeight='light'>
-          Comment 1 Comment 1 Comment 1 Comment 1
-        </Text>
-      </VStack>
-      <VStack alignItems='stretch'>
-        <Text fontSize='sm' fontWeight='semibold'>
-          Comment_nickname 2
-        </Text>
-        <Text fontSize='sm' fontWeight='light'>
-          Comment 2 Comment 2 Comment 2 Comment 2
-        </Text>
-      </VStack>
-      <VStack alignItems='stretch'>
-        <Text fontSize='sm' fontWeight='semibold'>
-          Comment_nickname 3
-        </Text>
-        <Text fontSize='sm' fontWeight='light'>
-          Comment 3 Comment 3
-        </Text>
-      </VStack>
-      <VStack alignItems='stretch'>
-        <Text fontSize='sm' fontWeight='semibold'>
-          Comment_nickname 4
-        </Text>
-        <Text fontSize='sm' fontWeight='light'>
-          Comment 4 Comment 4 Comment 4 Comment 4 Comment 4 Comment 4 Comment 4
-          Comment 4 Comment 4
-        </Text>
-      </VStack>
-      <VStack alignItems='stretch'>
-        <Text fontSize='sm' fontWeight='semibold'>
-          Comment_nickname 5
-        </Text>
-        <Text fontSize='sm' fontWeight='light'>
-          Comment 5
-        </Text>
-      </VStack>
+const PlaylistComments: FC = observer(() => {
+  const { commentStore, playlistStore } = useStores();
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      await commentStore.fetchPlaylistComments(playlistStore.openedPlaylist.id);
+    };
+
+    fetchComments();
+  }, []);
+
+  return commentStore.comments.length !== 0 ? (
+    <VStack
+      divider={<StackDivider opacity={0.6} />}
+      alignItems='start'
+      w='full'
+    >
+      {commentStore.comments.map((comment) => (
+        <PlaylistComment key={comment.id} comment={comment} />
+      ))}
     </VStack>
+  ) : (
+    <Center py={4} flex={1}>
+      <Box>
+        <FaCommentSlash size='120px' opacity={0.2} />
+        <Text opacity={0.3}>No comments yet :(</Text>
+      </Box>
+    </Center>
   );
-};
+});
 
 export default PlaylistComments;

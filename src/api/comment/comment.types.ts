@@ -16,11 +16,5 @@ export type CommentApi = {
     playlistId: PlaylistId,
   ) => ApiResponse<{ comments: Array<Comment> }>;
 
-  heart: (commentId: number) => ApiResponse<HeartObject>;
-
-  unheart: (commentId: number) => ApiResponse<{}>;
-
-  getHearts: () => ApiResponse<CommentHeartsObject>;
-
   heartsCount: (commentId: number) => ApiResponse<{ hearts: number }>;
 };

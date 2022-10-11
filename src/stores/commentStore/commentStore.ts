@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { api } from '../../api/api';
+import { HearteableType } from '../../enums';
 import { type Comment } from '../../models/Comment/Comment';
 import { authStore } from '../authStore';
 
@@ -35,6 +36,8 @@ export class CommentStore {
 
         this.setComments([...this.comments, comment]);
 
+        await this.fetchHeartsCount(comment);
+
         return res;
       }
     } catch (error) {
@@ -59,9 +62,12 @@ export class CommentStore {
   };
 
   fetchHeartsCount = async (comment: Comment) => {
-    const res = await api().comment.heartsCount(comment.id);
+    const res = await api().heart.getHeartsCount({
+      id: comment.id,
+      type: HearteableType.comment,
+    });
 
-    if (res) {
+    if (res && res.status === 200) {
       comment.setHeartsCount(res.data.hearts);
 
       return res.data.hearts;

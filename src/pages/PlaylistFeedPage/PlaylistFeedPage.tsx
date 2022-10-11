@@ -9,9 +9,10 @@ import Fab from '../../components/Fab/Fab';
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { HearteableType } from '../../enums';
+import { commentStore } from '../../stores';
 
 const PlaylistFeedPage: FC = observer((): JSX.Element => {
-  const { playlistStore, heartStore } = useStores();
+  const { playlistStore, heartStore, commentStore } = useStores();
   const navigate = useNavigate();
 
   const {
@@ -35,7 +36,7 @@ const PlaylistFeedPage: FC = observer((): JSX.Element => {
   const fetchHearts = useCallback(async () => {
     await heartStore.fetchHeartedIds(HearteableType.playlist);
     await heartStore.fetchHeartedIds(HearteableType.comment);
-  }, [heartStore]);
+  }, [heartStore, playlistStore, commentStore]);
 
   useEffect(() => {
     fetchHearts();

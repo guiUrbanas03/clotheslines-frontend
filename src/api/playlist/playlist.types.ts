@@ -33,11 +33,5 @@ export type PlaylistApi = {
 
   owner: (playlistId: PlaylistId) => ApiResponse<{ user: User }>;
 
-  heart: (playlistId: PlaylistId) => ApiResponse<HeartObject>;
-
-  unheart: (playlistId: PlaylistId) => ApiResponse<{}>;
-
-  getHearts: () => ApiResponse<PlaylistHeartsObject>;
-
   heartsCount: (playlistId: PlaylistId) => ApiResponse<{ hearts: number }>;
 };

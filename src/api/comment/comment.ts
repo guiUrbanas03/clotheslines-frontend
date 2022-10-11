@@ -1,5 +1,8 @@
 import { AxiosInstance } from 'axios';
-import { commentsTransformer } from '../../transformers/comment/commentTransformer';
+import {
+  commentsTransformer,
+  commentTransformer,
+} from '../../transformers/comment/commentTransformer';
 import { CommentApi } from './comment.types';
 
 export const comment = (axiosApi: AxiosInstance): CommentApi => {
@@ -13,7 +16,7 @@ export const comment = (axiosApi: AxiosInstance): CommentApi => {
         status: res.status,
         message: res.data.message,
         data: {
-          comment: res.data.comment,
+          comment: commentTransformer(res.data.comment),
         },
       };
     },
@@ -26,40 +29,6 @@ export const comment = (axiosApi: AxiosInstance): CommentApi => {
         message: res.data.message,
         data: {
           comments: commentsTransformer(res.data.comments),
-        },
-      };
-    },
-
-    heart: async (commentId) => {
-      const res = await axiosApi.post(`/comments/${commentId}/heart`);
-
-      return {
-        status: res.status,
-        message: res.data.message,
-        data: {
-          heart: res.data.heart,
-        },
-      };
-    },
-
-    unheart: async (commentId) => {
-      const res = await axiosApi.delete(`/comments/${commentId}/heart`);
-
-      return {
-        status: res.status,
-        message: res.data.message,
-        data: {},
-      };
-    },
-
-    getHearts: async () => {
-      const res = await axiosApi.get('/comments/profile/hearts');
-
-      return {
-        status: res.status,
-        message: res.data.message,
-        data: {
-          hearts: res.data.hearts,
         },
       };
     },

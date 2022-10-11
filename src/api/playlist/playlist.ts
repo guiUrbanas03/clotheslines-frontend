@@ -86,40 +86,6 @@ export const playlist = (axiosApi: AxiosInstance): PlaylistApi => {
       };
     },
 
-    heart: async (playlistId) => {
-      const res = await axiosApi.post(`/playlists/${playlistId}/heart`);
-
-      return {
-        status: res.status,
-        message: res.data.message,
-        data: {
-          heart: res.data.heart,
-        },
-      };
-    },
-
-    unheart: async (playlistId) => {
-      const res = await axiosApi.delete(`/playlists/${playlistId}/heart`);
-
-      return {
-        status: res.status,
-        message: res.data.message,
-        data: {},
-      };
-    },
-
-    getHearts: async () => {
-      const res = await axiosApi.get('/playlists/profile/hearts');
-
-      return {
-        status: res.status,
-        message: res.data.message,
-        data: {
-          hearts: res.data.hearts,
-        },
-      };
-    },
-
     heartsCount: async (playlistId) => {
       const res = await axiosApi.get(`/playlists/${playlistId}/hearts/count`);
 

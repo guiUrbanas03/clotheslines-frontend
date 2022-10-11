@@ -29,5 +29,51 @@ export const comment = (axiosApi: AxiosInstance): CommentApi => {
         },
       };
     },
+
+    heart: async (commentId) => {
+      const res = await axiosApi.post(`/comments/${commentId}/heart`);
+
+      return {
+        status: res.status,
+        message: res.data.message,
+        data: {
+          heart: res.data.heart,
+        },
+      };
+    },
+
+    unheart: async (commentId) => {
+      const res = await axiosApi.delete(`/comments/${commentId}/heart`);
+
+      return {
+        status: res.status,
+        message: res.data.message,
+        data: {},
+      };
+    },
+
+    getHearts: async () => {
+      const res = await axiosApi.get('/comments/profile/hearts');
+
+      return {
+        status: res.status,
+        message: res.data.message,
+        data: {
+          hearts: res.data.hearts,
+        },
+      };
+    },
+
+    heartsCount: async (commentId) => {
+      const res = await axiosApi.get(`/comments/${commentId}/hearts/count`);
+
+      return {
+        status: res.status,
+        message: res.data.message,
+        data: {
+          hearts: res.data.hearts,
+        },
+      };
+    },
   };
 };

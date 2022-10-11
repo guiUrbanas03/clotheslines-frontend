@@ -5,6 +5,7 @@ import { authStore } from '../authStore';
 
 export class CommentStore {
   comments: Array<Comment> = [];
+  hearts: Set<number> = new Set([]);
 
   constructor() {
     makeAutoObservable(this);
@@ -12,6 +13,10 @@ export class CommentStore {
 
   setComments = (comments: Array<Comment>) => {
     this.comments = comments;
+  };
+
+  setHearts = (hearts: Set<number>) => {
+    this.hearts = hearts;
   };
 
   storePlaylistComment = async (playlistId: number, commentText: string) => {
@@ -49,7 +54,17 @@ export class CommentStore {
         return res;
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    }
+  };
+
+  fetchHeartsCount = async (comment: Comment) => {
+    const res = await api().comment.heartsCount(comment.id);
+
+    if (res) {
+      comment.setHeartsCount(res.data.hearts);
+
+      return res.data.hearts;
     }
   };
 }

@@ -8,9 +8,10 @@ import LayoutContainer from '../../components/LayoutContainer/LayoutContainer';
 import Fab from '../../components/Fab/Fab';
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { HearteableType } from '../../enums';
 
 const PlaylistFeedPage: FC = observer((): JSX.Element => {
-  const { playlistStore } = useStores();
+  const { playlistStore, heartStore } = useStores();
   const navigate = useNavigate();
 
   const {
@@ -18,7 +19,6 @@ const PlaylistFeedPage: FC = observer((): JSX.Element => {
     playlistsArray,
     currentCursor,
     nextCursor,
-    hearts,
     fetchCursorPaginatedPlaylists,
     setCurrentPaginationCursor,
   } = playlistStore;
@@ -32,10 +32,10 @@ const PlaylistFeedPage: FC = observer((): JSX.Element => {
 
   const { observedElementRef } = useIntersectionObserverRef(fetchPlaylists);
 
-  const fetchHearts = useCallback(
-    async () => await playlistStore.fetchHearts(),
-    [hearts],
-  );
+  const fetchHearts = useCallback(async () => {
+    await heartStore.fetchHeartedIds(HearteableType.playlist);
+    await heartStore.fetchHeartedIds(HearteableType.comment);
+  }, [heartStore]);
 
   useEffect(() => {
     fetchHearts();

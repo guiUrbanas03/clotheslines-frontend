@@ -130,52 +130,6 @@ export class PlaylistStore {
     }
   };
 
-  heart = async (playlist: Playlist) => {
-    if (!authStore.isAuthenticated) {
-      return;
-    }
-
-    const res = await api().playlist.heart(playlist.id);
-
-    this.setHearts(new Set([...this.hearts, playlist.id]));
-
-    await this.fetchHeartsCount(playlist);
-
-    return res;
-  };
-
-  unheart = async (playlist: Playlist) => {
-    if (!authStore.isAuthenticated) {
-      return;
-    }
-
-    const res = await api().playlist.unheart(playlist.id);
-
-    const settedHearts = new Set(this.hearts);
-
-    settedHearts.delete(playlist.id);
-
-    this.setHearts(settedHearts);
-
-    await this.fetchHeartsCount(playlist);
-
-    return res;
-  };
-
-  fetchHearts = async () => {
-    if (!authStore.isAuthenticated) {
-      return;
-    }
-
-    const res = await api().playlist.getHearts();
-
-    if (res) {
-      this.setHearts(new Set(res.data.hearts));
-
-      return res;
-    }
-  };
-
   fetchHeartsCount = async (playlist: Playlist) => {
     const res = await api().playlist.heartsCount(playlist.id);
 
@@ -185,8 +139,6 @@ export class PlaylistStore {
       return res.data.hearts;
     }
   };
-
-  isHearted = (playlistId: number) => this.hearts.has(playlistId);
 }
 
 export default new PlaylistStore();

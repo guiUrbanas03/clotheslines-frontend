@@ -6,6 +6,7 @@ export const commentTransformer = (json: Record<string, any>): Comment => {
     id: json.id,
     text: json.text,
     profile: profileTransformer(json.profile),
+    heartsCount: json.hearts_count
   });
 };
 

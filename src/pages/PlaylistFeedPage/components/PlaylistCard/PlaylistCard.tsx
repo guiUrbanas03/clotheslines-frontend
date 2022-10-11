@@ -19,18 +19,21 @@ import SinglePlaylistModal from '../../../../components/SinglePlaylistModal/Sing
 import { useStores } from '../../../../hooks';
 import Protected from '../../../../components/Protected/Protected';
 import { RiHeart3Fill, RiHeart3Line } from 'react-icons/ri';
+import { HearteableType } from '../../../../enums';
 
 const PlaylistCard: FC<PlaylistCardProps> = observer(
   forwardRef(({ playlist }, ref): JSX.Element => {
-    const { authStore, playlistStore } = useStores();
+    const { authStore, playlistStore, heartStore } = useStores();
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const hearteable = { id: playlist.id, type: HearteableType.playlist };
 
     const handleClickHeart = async (event: MouseEvent) => {
       event.stopPropagation();
-      if (playlistStore.isHearted(playlist.id)) {
-        await playlistStore.unheart(playlist);
+
+      if (heartStore.isHearted(hearteable)) {
+        await heartStore.unheart(hearteable);
       } else {
-        await playlistStore.heart(playlist);
+        await heartStore.heart(hearteable);
       }
     };
 
@@ -89,14 +92,16 @@ const PlaylistCard: FC<PlaylistCardProps> = observer(
                 {playlist.title}
               </Text>
               <HStack>
-                <Text fontSize='sm' color='white'>{playlist.heartsCount}</Text>
+                <Text fontSize='sm' color='white'>
+                  {playlist.heartsCount}
+                </Text>
                 <IconButton
                   disabled={!authStore.isAuthenticated}
                   onClick={handleClickHeart}
                   shadow='lg'
                   rounded='full'
                   icon={
-                    playlistStore.isHearted(playlist.id) ? (
+                    heartStore.isHearted(hearteable) ? (
                       <RiHeart3Fill size='28px' color='#F36073' />
                     ) : (
                       <RiHeart3Line size='28px' color='#F36073' />

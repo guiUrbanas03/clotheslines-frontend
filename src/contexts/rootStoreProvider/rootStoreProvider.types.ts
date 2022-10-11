@@ -3,7 +3,8 @@ import {
   type AuthStore,
   type UserStore,
   type PlaylistStore,
-  CommentStore,
+  type CommentStore,
+  type HeartStore,
 } from '../../stores';
 
 export type RootStore = {
@@ -11,5 +12,6 @@ export type RootStore = {
   userStore: UserStore;
   playlistStore: PlaylistStore;
   commentStore: CommentStore;
+  heartStore: HeartStore;
   uiStore: UiStore;
 };

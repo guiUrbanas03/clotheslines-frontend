@@ -22,13 +22,18 @@ import { useStores } from '../../hooks';
 import SinglePlaylistModalSidebar from './components/SinglePlaylistModalSidebar/SinglePlaylistModalSidebar';
 import { FaComment } from 'react-icons/fa';
 import { RiHeart3Fill, RiHeart3Line } from 'react-icons/ri';
+import { HearteableType } from '../../enums';
 
 const SinglePlaylistModal: FC<SinglePlaylistModalProps> = observer(
   ({ isOpen, onClose }) => {
-    const { authStore, playlistStore } = useStores();
+    const { authStore, playlistStore, heartStore } = useStores();
     const [showSidebar, setShowSidebar] = useState<boolean>(false);
 
     const playlist = playlistStore.openedPlaylist;
+    const playlistHearteable = {
+      id: playlist.id,
+      type: HearteableType.playlist,
+    };
 
     const cardHeaderBackgroundColor = useColorModeValue(
       'blue.300',
@@ -44,10 +49,10 @@ const SinglePlaylistModal: FC<SinglePlaylistModalProps> = observer(
     };
 
     const handleClickHeart = async () => {
-      if (playlistStore.isHearted(playlist.id)) {
-        await playlistStore.unheart(playlist);
+      if (heartStore.isHearted(playlistHearteable)) {
+        await heartStore.unheart(playlistHearteable);
       } else {
-        await playlistStore.heart(playlist);
+        await heartStore.heart(playlistHearteable);
       }
     };
 
@@ -93,7 +98,7 @@ const SinglePlaylistModal: FC<SinglePlaylistModalProps> = observer(
                     shadow='lg'
                     rounded='full'
                     icon={
-                      playlistStore.isHearted(playlist.id) ? (
+                      heartStore.isHearted(playlistHearteable) ? (
                         <RiHeart3Fill size='28px' color='#F36073' />
                       ) : (
                         <RiHeart3Line size='28px' color='#F36073' />

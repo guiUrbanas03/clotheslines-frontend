@@ -28,8 +28,6 @@ export const playlist = (axiosApi: AxiosInstance): PlaylistApi => {
     find: async (playlistId) => {
       const res = await axiosApi.get(`/playlists/${playlistId}`);
 
-      console.log(res);
-
       return {
         status: res.status,
         message: res.data.message,
@@ -61,8 +59,6 @@ export const playlist = (axiosApi: AxiosInstance): PlaylistApi => {
         payload,
       );
 
-      console.log(res);
-
       return {
         status: res.status,
         message: res.data.message,
@@ -74,8 +70,6 @@ export const playlist = (axiosApi: AxiosInstance): PlaylistApi => {
 
     destroy: async (playlistId) => {
       const res = await axiosApi.delete(`/playlists/${playlistId}/destroy`);
-
-      console.log(res);
 
       return res;
     },

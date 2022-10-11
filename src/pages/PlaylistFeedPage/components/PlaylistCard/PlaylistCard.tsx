@@ -20,6 +20,8 @@ import { useStores } from '../../../../hooks';
 import Protected from '../../../../components/Protected/Protected';
 import { RiHeart3Fill, RiHeart3Line } from 'react-icons/ri';
 import { HearteableType } from '../../../../enums';
+import { randomProperty } from '../../../../utils/randomProperty';
+import { randomClothespinColor } from '../../../../utils';
 
 const PlaylistCard: FC<PlaylistCardProps> = observer(
   forwardRef(({ playlist }, ref): JSX.Element => {
@@ -74,6 +76,8 @@ const PlaylistCard: FC<PlaylistCardProps> = observer(
           px={[4, 4, 8, 0, 0]}
         >
           <Clothespin
+            lightColor={randomClothespinColor('light')}
+            darkColor={randomClothespinColor('dark')}
             boxStyle={{
               position: 'absolute',
               left: '50%',

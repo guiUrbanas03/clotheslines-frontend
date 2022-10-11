@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import {
   Box,
+  Button,
   Center,
+  Flex,
   HStack,
   Spacer,
   Text,
@@ -35,8 +37,8 @@ const PlaylistComment: FC<PlaylistCommentProps> = observer(
 
     return (
       <Box w='full'>
-        <HStack alignItems='stretch'>
-          <Box>
+        <Flex alignItems='center' justifyContent='space-between' p={0} m={0} gap={1}>
+          <Box w='full' flex={1}>
             <Text
               fontSize='sm'
               fontWeight='medium'
@@ -54,23 +56,37 @@ const PlaylistComment: FC<PlaylistCommentProps> = observer(
               {comment.text}
             </Text>
           </Box>
-          <Spacer />
-          <Center
-            flexDirection='column'
+          <Button
+            variant='link'
+            p={0}
+            m={0}
+            alignItems='flex-end'
+            justifyContent='flex-end'
+            minW='auto'
             cursor='pointer'
             _hover={{ filter: 'brightness(150%)' }}
             onClick={handleClickHeart}
+            disabled={!authStore.isAuthenticated}
           >
-            {heartStore.isHearted(hearteable) ? (
-              <RiHeart3Fill size='14px' color='#F36073' />
-            ) : (
-              <RiHeart3Line size='14px' color='#F36073' />
-            )}
-            <Text color='#F36073' fontSize='12px'>
-              {comment.heartsCount}
-            </Text>
-          </Center>
-        </HStack>
+            <Box
+              textAlign='center'
+              flexDirection='column'
+              alignItems='center'
+              justifyContent='center'
+            >
+              <Box margin={0}>
+                {heartStore.isHearted(hearteable) ? (
+                  <RiHeart3Fill size='14px' color='#F36073' />
+                ) : (
+                  <RiHeart3Line size='14px' color='#F36073' />
+                )}
+              </Box>
+              <Text color='#F36073' fontSize='12px' fontWeight='normal'>
+                {comment.heartsCount}
+              </Text>
+            </Box>
+          </Button>
+        </Flex>
       </Box>
     );
   },

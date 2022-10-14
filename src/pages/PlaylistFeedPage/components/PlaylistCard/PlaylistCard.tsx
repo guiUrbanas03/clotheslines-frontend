@@ -1,4 +1,4 @@
-import React, { FC, forwardRef, MouseEvent } from 'react';
+import React, { FC, forwardRef, MouseEvent, useMemo } from 'react';
 import {
   Box,
   Flex,
@@ -13,21 +13,19 @@ import {
 import { observer } from 'mobx-react';
 import Clothespin from '../../../../components/Clothespin/Clothespin';
 import { PlaylistCardProps } from './PlaylistCard.types';
-
 import PlaylistSongItem from '../PlaylistSongItem/PlaylistSongItem';
 import SinglePlaylistModal from '../../../../components/SinglePlaylistModal/SinglePlaylistModal';
-import { useStores } from '../../../../hooks';
+import { useClothespinColors, useStores } from '../../../../hooks';
 import Protected from '../../../../components/Protected/Protected';
 import { RiHeart3Fill, RiHeart3Line } from 'react-icons/ri';
 import { HearteableType } from '../../../../enums';
-import { randomProperty } from '../../../../utils/randomProperty';
-import { randomClothespinColor } from '../../../../utils';
 
 const PlaylistCard: FC<PlaylistCardProps> = observer(
   forwardRef(({ playlist }, ref): JSX.Element => {
     const { authStore, playlistStore, heartStore } = useStores();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const hearteable = { id: playlist.id, type: HearteableType.playlist };
+    const clothespinColors = useClothespinColors();
 
     const handleClickHeart = async (event: MouseEvent) => {
       event.stopPropagation();
@@ -76,8 +74,8 @@ const PlaylistCard: FC<PlaylistCardProps> = observer(
           px={[4, 4, 8, 0, 0]}
         >
           <Clothespin
-            lightColor={randomClothespinColor('light')}
-            darkColor={randomClothespinColor('dark')}
+            lightColor={clothespinColors.light}
+            darkColor={clothespinColors.dark}
             boxStyle={{
               position: 'absolute',
               left: '50%',
